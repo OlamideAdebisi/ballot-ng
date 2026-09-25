@@ -46,6 +46,7 @@
     updateHeader();
     window.toast(isRegister ? 'Account created and signed in.' : 'Signed in successfully.');
     location.hash = 'elections';
+    if (typeof route === 'function') route();
   }
 
   document.addEventListener('submit', handleAuth, true);

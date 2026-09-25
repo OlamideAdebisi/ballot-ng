@@ -17,6 +17,9 @@
       console.warn('Could not load elections from Supabase:', error.message);
       return;
     }
+    // Keep the prototype's starter content until the first real election exists.
+    // This prevents the landing page from rendering against an empty collection.
+    if (!data || data.length === 0) return;
     state.elections = (data || []).map((e) => ({
       id: e.id,
       title: e.title,

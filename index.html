@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en-NG">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ballot.ng — Trusted community voting</title>
+  <meta name="description" content="A simple, transparent voting platform for communities, schools and organisations in Nigeria." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Ballot.ng home"><span class="brand-mark">✓</span><span>Ballot<span class="brand-dot">.</span>ng</span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#home">Home</a><a href="#elections">Elections</a><a href="#how-it-works">How it works</a>
+    </nav>
+    <div class="header-actions"><span id="user-chip" class="user-chip hidden"></span><button class="btn btn-quiet" id="auth-button">Sign in</button><button class="menu-button" id="menu-button">☰</button></div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer class="site-footer"><div><a class="brand footer-brand" href="#home"><span class="brand-mark">✓</span><span>Ballot<span class="brand-dot">.</span>ng</span></a><p>Making every vote count, securely.</p></div><div class="footer-links"><a href="#elections">Elections</a><a href="#how-it-works">How it works</a><a href="#admin">Admin</a></div><small>© 2026 Ballot.ng · Built for Nigeria</small></footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -33,11 +33,17 @@
       return;
     }
 
-    if (isRegister && !result.data.session) {
-      window.toast('Account created. Check your email to confirm your account.');
+    if (!result.data.session) {
+      window.toast(isRegister ? 'Account created. Check your email to confirm your account.' : 'Please confirm your email before signing in.');
       return;
     }
 
+    state.current = {
+      name: result.data.user.user_metadata?.full_name || result.data.user.email,
+      email: result.data.user.email
+    };
+    save();
+    updateHeader();
     window.toast(isRegister ? 'Account created and signed in.' : 'Signed in successfully.');
     location.hash = 'elections';
   }

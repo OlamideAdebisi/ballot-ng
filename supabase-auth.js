@@ -1,10 +1,8 @@
 /* Supabase Auth adapter for the existing prototype UI. */
 (function () {
-  const config = window.SUPABASE_CONFIG || {};
-  const hasConfig = config.url && !config.url.includes('PASTE_') && config.publishableKey && !config.publishableKey.includes('PASTE_');
-  if (!hasConfig || !window.supabase) return;
-
-  const client = window.supabase.createClient(config.url, config.publishableKey);
+  const client = window.ballotSupabase;
+  if (!client) return;
+  const state = window.ballotState;
   window.ballotSupabase = client;
 
   async function handleAuth(event) {
@@ -42,11 +40,11 @@
       name: result.data.user.user_metadata?.full_name || result.data.user.email,
       email: result.data.user.email
     };
-    save();
-    updateHeader();
+    window.ballotSave();
+    window.ballotUpdateHeader();
     window.toast(isRegister ? 'Account created and signed in.' : 'Signed in successfully.');
     location.hash = 'elections';
-    if (typeof route === 'function') route();
+    window.ballotRoute();
   }
 
   document.addEventListener('submit', handleAuth, true);

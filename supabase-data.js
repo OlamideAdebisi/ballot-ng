@@ -2,6 +2,7 @@
 (function () {
   const client = window.ballotSupabase;
   if (!client) return;
+  const state = window.ballotState;
 
   async function loadElections() {
     const { data: { user } } = await client.auth.getUser();
@@ -35,8 +36,8 @@
         votes: (c.votes || []).length
       }))
     }));
-    if (location.hash === '#home' || location.hash === '#elections' || location.hash === '') home();
-    if (location.hash.startsWith('#vote/')) vote(location.hash.split('/')[1]);
+    if (location.hash === '#home' || location.hash === '#elections' || location.hash === '') window.ballotRoute();
+    if (location.hash.startsWith('#vote/')) window.ballotRoute();
   }
 
   async function submitVote(event) {

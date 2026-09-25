@@ -4,6 +4,11 @@
   if (!client) return;
 
   async function loadElections() {
+    const { data: { user } } = await client.auth.getUser();
+    state.current = user ? {
+      name: user.user_metadata?.full_name || user.email,
+      email: user.email
+    } : null;
     const { data, error } = await client
       .from('elections')
       .select('id,title,description,election_type,location,status,starts_at,ends_at,candidates(id,name,party,manifesto,votes(voter_id))')

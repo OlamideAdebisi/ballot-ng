@@ -20,7 +20,10 @@
       result = await client.auth.signUp({
         email,
         password,
-        options: { data: { full_name: String(data.get('name') || '').trim() } }
+        options: {
+          data: { full_name: String(data.get('name') || '').trim() },
+          emailRedirectTo: `${window.location.origin}${window.location.pathname}`
+        }
       });
     } else {
       result = await client.auth.signInWithPassword({ email, password });

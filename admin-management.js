@@ -7,7 +7,8 @@
     event.stopImmediatePropagation();
     const form = event.target;
     const values = new FormData(form);
-    const { data: { user } } = await client.auth.getUser();
+    const { data: { session } } = await client.auth.getSession();
+    const user = session?.user;
     if (!user) return window.toast('Please sign in before creating an election.');
     const candidates = String(values.get('candidates')).split(',').map((value) => ({
       name: value.split('—')[0].trim(),
@@ -45,7 +46,8 @@
         event.preventDefault();
         event.stopPropagation();
         if (!client) return window.toast('Supabase is not configured.');
-        const { data: { user } } = await client.auth.getUser();
+        const { data: { session } } = await client.auth.getSession();
+        const user = session?.user;
         if (!user) return window.toast('Please sign in first.');
         const { error } = await client.from('elections').update({ status: event.currentTarget.dataset.status }).eq('id', election.id).eq('created_by', user.id);
         if (error) return window.toast(error.message);

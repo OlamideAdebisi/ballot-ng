@@ -29,7 +29,10 @@
     }
     // Keep the prototype's starter content until the first real election exists.
     // This prevents the landing page from rendering against an empty collection.
-    if (!data || data.length === 0) return;
+    if (!data || data.length === 0) {
+      if (location.hash.startsWith('#vote/')) window.ballotRoute?.();
+      return;
+    }
     state.elections = (data || []).map((e) => ({
       id: e.id,
       title: e.title,

@@ -4,6 +4,15 @@
   if (!client) return;
   const state = window.ballotState;
 
+  client.auth.onAuthStateChange((_event, session) => {
+    state.current = session?.user ? {
+      name: session.user.user_metadata?.full_name || session.user.email,
+      email: session.user.email
+    } : null;
+    window.ballotUpdateHeader?.();
+    if (location.hash.startsWith('#vote/')) window.ballotRoute?.();
+  });
+
   async function loadElections() {
     const { data: { user } } = await client.auth.getUser();
     state.current = user ? {

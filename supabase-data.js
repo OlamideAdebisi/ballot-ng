@@ -6,11 +6,16 @@
 
   async function refreshVoteAccess() {
     if (!location.hash.startsWith('#vote/')) return;
+    const election = state.elections.find((item) => item.id === location.hash.split('/')[1]);
+    const button = document.querySelector('#cast');
+    if (election && election.status !== 'live' && button) {
+      button.textContent = 'Voting not open';
+      button.disabled = true;
+      return;
+    }
     const { data: { session } } = await client.auth.getSession();
     if (!session) return;
-    const election = state.elections.find((item) => item.id === location.hash.split('/')[1]);
     if (!election || election.status !== 'live') return;
-    const button = document.querySelector('#cast');
     if (button) button.textContent = 'Cast my vote →';
     document.querySelectorAll('.candidate-row[data-candidate]').forEach((row) => {
       row.onclick = () => {

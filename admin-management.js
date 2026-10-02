@@ -19,6 +19,7 @@
       title: values.get('title'),
       election_type: values.get('type'),
       location: values.get('location'),
+      status: values.get('date') && new Date(values.get('date')) <= new Date() ? 'live' : 'upcoming',
       ends_at: values.get('date') ? new Date(values.get('date')).toISOString() : null,
       created_by: user.id,
       description: 'A new election managed on Ballot.ng.'
